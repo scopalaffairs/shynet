@@ -10,14 +10,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-from dotenv import load_dotenv
-
 # import module sys to get the type of exception
 import sys
 import urllib.parse as urlparse
 
 # Messages
 from django.contrib.messages import constants as messages
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
@@ -39,7 +38,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "onlyusethisindev")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
-CSRF_TRUSTED_ORIGINS = filter(lambda k: len(k) > 0, os.getenv("CSRF_TRUSTED_ORIGINS", "").split(","))
+CSRF_TRUSTED_ORIGINS = filter(
+    lambda k: len(k) > 0, os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+)
 
 # Application definition
 
@@ -289,7 +290,7 @@ MESSAGE_TAGS = {
 
 # Email
 
-SERVER_EMAIL = os.getenv("SERVER_EMAIL", "Shynet <noreply@shynet.example.com>")
+SERVER_EMAIL = os.getenv("SERVER_EMAIL", "Shynet <noreply@shynet.localhost>")
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
 if DEBUG or os.environ.get("EMAIL_HOST") is None:
@@ -380,14 +381,15 @@ CORS_ALLOW_METHODS = ["GET", "OPTIONS"]
 
 # IPWare Precedence Options
 IPWARE_META_PRECEDENCE_ORDER = (
-    'HTTP_CF_CONNECTING_IP',
-    'HTTP_X_FORWARDED_FOR', 'X_FORWARDED_FOR', # client, proxy1, proxy2
-    'HTTP_CLIENT_IP',
-    'HTTP_X_REAL_IP',
-    'HTTP_X_FORWARDED',
-    'HTTP_X_CLUSTER_CLIENT_IP',
-    'HTTP_FORWARDED_FOR',
-    'HTTP_FORWARDED',
-    'HTTP_VIA',
-    'REMOTE_ADDR',
+    "HTTP_CF_CONNECTING_IP",
+    "HTTP_X_FORWARDED_FOR",
+    "X_FORWARDED_FOR",  # client, proxy1, proxy2
+    "HTTP_CLIENT_IP",
+    "HTTP_X_REAL_IP",
+    "HTTP_X_FORWARDED",
+    "HTTP_X_CLUSTER_CLIENT_IP",
+    "HTTP_FORWARDED_FOR",
+    "HTTP_FORWARDED",
+    "HTTP_VIA",
+    "REMOTE_ADDR",
 )

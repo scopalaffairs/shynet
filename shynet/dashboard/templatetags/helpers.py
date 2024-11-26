@@ -1,14 +1,14 @@
+import urllib
 from datetime import timedelta
 from urllib.parse import urlparse
-import urllib
 
 import pycountry
 from django import template
 from django.conf import settings
+from django.template.defaulttags import url as url_tag
 from django.utils import timezone
 from django.utils.html import escape
 from django.utils.safestring import SafeString
-from django.template.defaulttags import url as url_tag
 
 register = template.Library()
 
@@ -149,7 +149,7 @@ def iconify(text):
         "edge": "microsoft.com",
         "firefox": "firefox.com",
         "opera": "opera.com",
-        "unknown": "example.com",
+        "unknown": "localhost",
         "linux": "kernel.org",
         "ios": "www.apple.com",
         "mac": "www.apple.com",

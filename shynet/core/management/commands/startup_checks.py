@@ -1,6 +1,7 @@
 import traceback
 import uuid
 
+from core.models import User
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
@@ -8,8 +9,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import DEFAULT_DB_ALIAS, connections
 from django.db.utils import ConnectionHandler, OperationalError
 from django.utils.crypto import get_random_string
-
-from core.models import User
 
 
 class Command(BaseCommand):
@@ -41,7 +40,7 @@ class Command(BaseCommand):
             whitelabel = (
                 not Site.objects.filter(name__isnull=False)
                 .exclude(name__exact="")
-                .exclude(name__exact="example.com")
+                .exclude(name__exact="localhost")
                 .exists()
             )
 

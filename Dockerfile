@@ -9,8 +9,8 @@ ARG GF_GID="500"
 RUN apk update && \
 	apk add --no-cache gettext bash npm postgresql-libs && \
 	test "$(arch)" != "x86_64" && apk add libffi-dev rust cargo || echo "amd64 build, skipping Rust installation"
-	# libffi-dev and rust are used for the cryptography package,
-	# which we indirectly rely on. Necessary for aarch64 support.
+# libffi-dev and rust are used for the cryptography package,
+# which we indirectly rely on. Necessary for aarch64 support.
 
 # MaxMind scans GitHub for exposed license keys and deactivates them. This
 # (encoded) license key is intened to be public; it is not configured with any
@@ -61,6 +61,6 @@ RUN python manage.py collectstatic --noinput && \
 
 # Launch
 USER appuser
-EXPOSE 8080
-HEALTHCHECK CMD bash -c 'wget -o /dev/null -O /dev/null --header "Host: ${ALLOWED_HOSTS%%,*}" "http://127.0.0.1:${PORT:-8080}/healthz/?format=json"'
+EXPOSE 8888
+HEALTHCHECK CMD bash -c 'wget -o /dev/null -O /dev/null --header "Host: ${ALLOWED_HOSTS%%,*}" "http://127.0.0.1:${PORT:-8888}/healthz/?format=json"'
 CMD [ "./entrypoint.sh" ]

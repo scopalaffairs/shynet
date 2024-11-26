@@ -1,19 +1,17 @@
-import traceback
-from django.utils.timezone import now
-from django.utils.timezone import timedelta
 import random
+import traceback
 import uuid
+from logging import info
 
+import user_agents
+from analytics.models import Hit, Session
+from analytics.tasks import ingress_request
+from core.models import Service, User
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.crypto import get_random_string
-import user_agents
-from logging import info
-
-from core.models import User, Service
-from analytics.models import Session, Hit
-from analytics.tasks import ingress_request
+from django.utils.timezone import now, timedelta
 
 LOCATIONS = [
     "/",
@@ -98,7 +96,7 @@ class Command(BaseCommand):
                 ip = random.choice(ips)
                 load_time = random.normalvariate(options.get("load_time"), 500)
                 referrer = random.choice(REFERRERS)
-                location = "https://example.com" + random.choice(LOCATIONS).replace(
+                location = "https://localhost" + random.choice(LOCATIONS).replace(
                     "{rand}", str(random.randint(0, n))
                 )
                 user_agent = random.choice(USER_AGENTS)
