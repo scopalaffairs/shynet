@@ -14,8 +14,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - internal
     depends_on:
       - db
       
@@ -34,8 +32,6 @@ services:
       retries: 3
     volumes:
       - ./volumes/shynet_db:/var/lib/postgresql/data
-    networks:
-      - internal
       
   webserver:
     container_name: shynet_webserver
@@ -48,14 +44,11 @@ services:
     depends_on:
       - shynet
     networks:
-      - internal
       - nginx
 
 volumes:
   shynet_db:
 
 networks:
-  internal:
-    driver: bridge
   nginx:
     external: true
