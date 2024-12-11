@@ -242,8 +242,8 @@ def contextual_url(*args, **kwargs):
 
 @register.filter
 def location_url(session):
-    return settings.LOCATION_URL.replace("$LATITUDE", str(session.latitude)).replace(
-        "$LONGITUDE", str(session.longitude)
+    return settings.LOCATION_URL.replace("LATITUDE", str(session.latitude)).replace(
+        "LONGITUDE", str(session.longitude)
     )
 
 
